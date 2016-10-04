@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+button {
+  position: absolute;
+  right: 30px;
+  top: 30px;
+}
+
+</style>
+<button>Reset</button>
+<body>
+<script src="//d3js.org/d3.v3.min.js"></script>
+<script>
+
+var margin = {top: 0, right: 0, bottom: 0, left: 0},
+    width = 1000,		// canvas width
+    height = 500;		// canvas height
+
+var zoom = d3.behavior.zoom()
+    .scaleExtent([1, 5])
+    .on("zoom", zoomed);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .attr("style", "outline: thin solid red;")
+    .call(zoom);
+
+var container = svg.append("g")
+    .attr("id", "container");
+
+var bbox, viewBox, vx, vy, vw, vh, defaultView;
+var scale = 2;
+
+d3.select("button").on("click", reset);
+
+d3.tsv("circles.tsv", circletype, function(error, circles) {
+  circle = container.append("g")
+    .attr("id", "circles")
+    .selectAll("circle")
+      .data(circles)
+    .enter().append("circle")
+      .attr("r",  function(d) { return d.r; })
+      .attr("cx", function(d) { return d.x; })
+      .attr("cy", function(d) { return d.y; })
+      .style("fill", function(d) { return d.fill; })
+      .on("click", clicked);
+
+  bbox = container.node().getBBox();
+  vx = bbox.x;
+  vy = bbox.y;
+  vw = bbox.width;
+  vh = bbox.height;
+
+  defaultView = "" + vx + " " + vy + " " + vw + " " + vh
+
+  svg
+	.attr("viewBox", defaultView)
+	.attr("preserveAspectRatio", "xMidYMid meet")
+        .call(zoom);
+
+});
+
+/*
+getTransform(node, scale) finds the correct translation co-ordinates in order
+to center the SVG group (node) into the Viewbox. This depends on the scale.
+ - bbox is the bounding box of the SVG group (node)
+ - vx is the top-left x-cordinate of the Viewbox
+ - vy is the top-left y-cordinate of the Viewbox
+ - tx is the calculated movement in the x co-ordinate 
+ - ty is the calculated movement in the y co-ordinate 
+ - scale is the scale of the SVG with respect to the default Viewbox
+*/
+function getTransform(node, scale) {
+  bbox = node.node().getBBox();
+  var bx = bbox.x;
+  var by = bbox.y;
+  var bw = bbox.width;
+  var bh = bbox.height;
+  var tx = -bx*scale + vx + vw/2 - bw*scale/2;
+  var ty = -by*scale + vy + vh/2 - bh*scale/2;
+  return {translate: [tx, ty], scale: scale}
+}
+
+function clicked(d, i) {
+  if (d3.event.defaultPrevented) return; // panning, not clicking
+  node = d3.select(this);
+
+  var transform = getTransform(node, scale);
+
+  container.transition().duration(1000)
+     .attr("transform", "translate(" + transform.translate + ")scale(" + scale + ")");
+  zoom.scale(scale)
+      .translate(transform.translate);
+}
+
+function circletype(d) {
+  d.x = +d.x;
+  d.y = +d.y;
+  d.r = +d.r;
+  return d;
+}
+
+function zoomed() {
+  var translateX = d3.event.translate[0];
+  var translateY = d3.event.translate[1];
+  var scale = d3.event.scale;
+
+  container.attr("transform", "translate(" + translateX + "," + translateY + ")scale(" + scale + ")");
+}
+
+function reset() {
+  container.attr("transform", "translate(0,0)scale(1)");
+}
+
+
+</script>
