@@ -1,5 +1,3 @@
-Using viewBox, behavior.zoom() AND .on("click")
-===============================================
 
 * Use the mouse wheel to zoom in/out
 * Use mouse drag to pan canvas
