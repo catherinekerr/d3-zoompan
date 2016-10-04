@@ -57,7 +57,7 @@ So far so good, but I also wanted to zoom into a circle when the circle is click
 
 `bx` and `by` are the top-left co-ordinates of the `node` (in this case, the circle that was clicked)  
 `bw` (and `bh`) is the diameter of the circle  
-`vx, vy, vw, vh` are as above
+`vx`, `vy`, `vw`, `vh` are as above  
 `tx` is the translation of the x co-ordinate  
 `ty` is the translation of the y co-ordinate  
 
