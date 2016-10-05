@@ -15,8 +15,8 @@ button {
 <script>
 
 var margin = {top: 0, right: 0, bottom: 0, left: 0},
-    width = 900,		// canvas width
-    height = 450;		// canvas height
+    width = 840,		// canvas width
+    height = 480;		// canvas height
 
 var zoom = d3.behavior.zoom()
     .scaleExtent([1, 5])
@@ -25,7 +25,7 @@ var zoom = d3.behavior.zoom()
 var svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height)
-    .attr("style", "outline: thick solid red;")
+    .attr("style", "outline: medium solid red;")
     .call(zoom);
 
 var container = svg.append("g")
@@ -115,6 +115,6 @@ function reset() {
   container.attr("transform", "translate(0,0)scale(1)");
 }
 
-d3.select(self.frameElement).style("outline: thin solid red;");
+d3.select(self.frameElement).style("margin: 10;");
 
 </script>
