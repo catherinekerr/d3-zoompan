@@ -13,8 +13,8 @@ With this example, I wanted to solve a three-fold problem:
   
 The first and second problems are easily solved using the viewBox attribute and d3.behavior.zoom(). The difficulty is calculating the transform.translate co-ordinates when solving problem 3. When you use the viewBox attribute to transform the SVG, the scale is automatically reset to 1. Therefore, subsequent transformations need to take that into consideration.  
 
-In this example, there are three circles as described in file circles.tsv. The SVG viewbox (outlined in red) has width 1000 and height 500, so we need to fit the 3 circles into this container. The bounding box that surrounds the 3 circles has top-left co-ordinates (200,100), width 2000 and height 2000.  
-So we are trying to fit an SVG of width 2000 and height 2000 into a viewbox of width 1000 and height 500. The SVG is twice the width and 4 times the height of the viewbox. Therefore, if we want to scale uniformly, we must scale the whole SVG to one quarter (0.25). However, with the viewBox attribute, we don't need to worry about this. Simply set the viewBox attribute to the top-left co-ordinates, width and height of the circles' bounding box as follows:  
+In this example, there are three circles as described in file circles.tsv. The SVG viewbox (outlined in red) has width 840 and height 480, so we need to fit the 3 circles into this container. The bounding box that surrounds the 3 circles has top-left co-ordinates (200,100), width 2000 and height 2000.  
+So we are trying to fit an SVG of width 2000 and height 2000 into a viewbox of width 840 and height 480. The SVG is ~2.4 times the width and ~4.2 times the height of the viewbox. Therefore, if we want to scale uniformly, we must scale the whole SVG to 1/4.2 (0.24). However, with the viewBox attribute, we don't need to worry about this. Simply set the viewBox attribute to the top-left co-ordinates, width and height of the circles' bounding box as follows:  
 
 <pre style="background: #E3E3E3;">
 <code>
