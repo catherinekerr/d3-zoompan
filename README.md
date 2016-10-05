@@ -1,3 +1,5 @@
+Zoom, pan, click to center
+==========================
 
 * Use the mouse wheel to zoom in/out
 * Use mouse drag to pan canvas
