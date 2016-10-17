@@ -6,6 +6,8 @@ Zoom, pan, click to center
 * Use mouse drag to pan canvas
 * Click on circle to enlarge and center in box
 
+View this code in action at [http://bl.ocks.org/catherinekerr/b3227f16cebc8dd8beee461a945fb323](http://bl.ocks.org/catherinekerr/b3227f16cebc8dd8beee461a945fb323)
+
 With this example, I wanted to solve a three-fold problem:  
 1. Scale SVG to fit into smaller window size.  
 2. Use mouse drag and thumbwheel to pan and zoom the SVG.  
